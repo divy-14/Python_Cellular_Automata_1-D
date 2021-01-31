@@ -21,11 +21,9 @@ The rule for updating the cell depends upon the current state of the cell and it
 <h1 align="center">Result images and its corresponding Rulesets</h1>
 <p><b>Not all Rulesets will produce valuable results but the one which do produce are truly beautiful to look at. Take a look at some of these below:</b></p><br>
 <p align="center">
-<img src="ca_output/30.png" width="450px" height="300px"><img src="ca_output/18.png" width="450px" height="300px">
-<img src="ca_output/137.png" width="450px" height="300px">
-<img src="ca_output/153.png" width="450px" height="300px">
-<img src="ca_output/150.png" width="450px" height="300px">
-<img src="ca_output/165.png" width="450px" height="300px">
+<img src="ca_output/30.png" width="450px" height="300px"><img src="ca_output/18.png" width="450px" height="300px"> <br>
+<img src="ca_output/137.png" width="450px" height="300px"><img src="ca_output/153.png" width="450px" height="300px"> <br>
+<img src="ca_output/150.png" width="450px" height="300px"><img src="ca_output/165.png" width="450px" height="300px"> 
 
 <br><br>
 <p><b>I am sure after seeing this you will definetly believe that some simple rules can give rise to such complex behaviours its truly beautiful !</b></p>
