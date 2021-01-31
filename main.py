@@ -1,94 +1,50 @@
-import matplotlib.pyplot as plt
-import numpy as np
+from create_CA import *
+import os
 
 
-def init_array(n):
-    arr = np.zeros(n, dtype=np.int)
-    arr[n//2] = 1
-    arr = np.reshape(arr, (1, -1))
-    return arr
+try:
+    os.mkdir('ca_output')
+except:
+    pass
+
+root = "ca_output/"
 
 
-def create_binary_ruleset(ruleset):
+choice = int(input(
+    "\n1. View a particular Ruleset ( Press 1 ) \n2. Produce result of rulesets in a given range(0-255). ( Press 2 ) \n3. Exit\n"))
 
-    ruleset = bin(ruleset)
-    ruleset = ruleset[2:]
-    ruleset = [int(i) for i in ruleset]
+if choice == 1:
+    ruleset = int(
+        input("\nEnter the ruleset that you want to view (0-255): "))
 
+    if ruleset < 0 or ruleset > 255:
+        print("Values not in range ..")
+        exit()
+
+    binary_ruleset = create_binary_ruleset(ruleset)
+    mat = compute_next_gen(init_array(200), 100, binary_ruleset)
+    plot(mat, str(ruleset))
+    file_path = os.path.join(root, str(ruleset)+'.png')
+    save_plot(ca=mat, title=str(ruleset),
+              path=file_path)
+
+elif choice == 2:
+    print("\nEnter L and R values for the range: ")
+    l, r = map(int, input().split())
+    curr_ruleset = l
     count = 0
-    if len(ruleset) < 8:
-        count = 8-len(ruleset)
+    if r > 255 or l < 0:
+        print("Values not in range ..")
+        exit()
 
-    while count:
-        ruleset = [0]+ruleset
-        count -= 1
+    for i in range(l, r+1):
+        ruleset = i
+        which_ruleset = create_binary_ruleset(ruleset)
+        mat = compute_next_gen(init_array(200), 100, which_ruleset)
+        save_plot(ca=mat, title=str(ruleset),
+                  path=os.path.join(root, str(ruleset)+'.png'))
 
-    return ruleset
-
-
-def rules_simplified(l, c, r, ruleset):
-    bin_rep = str(l)+str(c)+str(r)
-    return ruleset[7-int(bin_rep, 2)]
-
-
-def rules(l, c, r, ruleset):  # using ruleset n
-
-    if l == 1 and c == 1 and r == 1:
-        return ruleset[0]  # msb
-
-    if l == 1 and c == 1 and r == 0:
-        return ruleset[1]
-
-    if l == 1 and c == 0 and r == 1:
-        return ruleset[2]
-
-    if l == 1 and c == 0 and r == 0:
-        return ruleset[3]
-
-    if l == 0 and c == 1 and r == 1:
-        return ruleset[4]
-
-    if l == 0 and c == 1 and r == 0:
-        return ruleset[5]
-
-    if l == 0 and c == 0 and r == 1:
-        return ruleset[6]
-
-    if l == 0 and c == 0 and r == 0:
-        return ruleset[7]
-
-    return 0
-
-
-def compute_next_gen(grid_cell, time, rule_applied):
-
-    # we will create a matrix where each row will represent a generation
-    rows, cols = grid_cell.shape
-    mat = np.zeros((time, cols), dtype=grid_cell.dtype)
-    mat[0] = grid_cell
-
-    for t in range(1, time):  # rows
-        curr_gen = mat[t-1]
-
-        for col in range(1, cols-1):
-            left = curr_gen[col-1]
-            right = curr_gen[col+1]
-            curr = curr_gen[col]
-
-            # mat[t][col] = rules(left, curr, right, rule_applied)
-            mat[t][col] = rules_simplified(left, curr, right, rule_applied)
-
-    return mat
-
-
-def plot(ca, title=''):
-    cmap = plt.get_cmap('Greys')
-    plt.title("Ruleset " + title)
-    plt.imshow(ca, interpolation='none', cmap=cmap)
-    plt.show()
-
-
-ruleset = 193
-which_ruleset = create_binary_ruleset(ruleset)
-mat = compute_next_gen(init_array(200), 100, which_ruleset)
-plot(mat, str(ruleset))
+        print(
+            f'Created ruleset: {curr_ruleset}, Remaining rulesets in given range: {r-l-count}')
+        count += 1
+        curr_ruleset += 1
