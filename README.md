@@ -10,7 +10,7 @@ The rule for updating the cell depends upon the current state of the cell and it
 
 <br>
 <h1 align="center">Stephen Wolfram's work on Cellular Automata</h1>
-<p> This Repository concenrates on Stephen's Wolfram work on 1-d cellular automata. He recorded some complex yet simple structures. That make you question how can something so simple produce something so complex.</p>
+<p> This Repository concentrates on Stephen's Wolfram work on 1-d cellular automata. He recorded some complex yet simple structures. That makes you question how can something so simple produce something so complex.</p>
 <p> Rules followed by 1-D Automata used in this Repository: </p>
 <ul>
 <li> We have two states 0 and 1 </li>
